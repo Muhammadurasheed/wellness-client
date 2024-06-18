@@ -21,7 +21,7 @@ export default function AlertDialogSlide(props) {
 
   const verifyLogin = () => {
     axios
-      .post("/api/user/register", {
+      .post("https://equal-yoke-touted-vein-production.pipops.app/api/user/register", {
         email,
         password,
         name,

@@ -3,7 +3,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "http://localhost:5000",
+      target: "https://equal-yoke-touted-vein-production.pipops.app",
       changeOrigin: true,
     })
   );

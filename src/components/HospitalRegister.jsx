@@ -41,7 +41,7 @@ export default function AlertDialogSlide(props) {
     )
       return setError("Please Fill the required fields");
     axios
-      .post("/api/hospital/register", {
+      .post("https://equal-yoke-touted-vein-production.pipops.app/api/hospital/register", {
         email,
         password,
         name,

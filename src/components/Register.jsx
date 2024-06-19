@@ -21,7 +21,7 @@ export default function AlertDialogSlide(props) {
 
   const verifyLogin = () => {
     axios
-      .post("https://equal-yoke-touted-vein-production.pipops.app/api/user/register", {
+      .post("https://equal-yoke-touted-vein-production.pipeops.app/api/user/register", {
         email,
         password,
         name,
@@ -75,11 +75,11 @@ export default function AlertDialogSlide(props) {
             <div className="create-form-element">
               <img src={image} alt="create svg" style={{ width: "25vw" }} />
             </div>
-            {/* {error ? (
+            {error ? (
               <div className="create-form-element">
                 <Alert severity="error">{error}</Alert>
               </div>
-            ) : null} */}
+            ) : null}
             <div className="create-form-element">
               <TextField
                 value={email}

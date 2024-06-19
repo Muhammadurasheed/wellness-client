@@ -3,8 +3,7 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { TextField, Paper, InputAdornment } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-// import { Alert } from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
 import image from "../assets/hospital_register.svg";
 import { Redirect } from "react-router-dom";
@@ -22,7 +21,9 @@ export default function AlertDialogSlide(props) {
   const [address, setaddress] = useState("");
   const [telephone, settelephone] = useState("");
   const [beds, setBeds] = useState(0);
+  // const [type, setType] = useState([]);
   const [description, setDescription] = useState("");
+  // const [image, setImage] = useState("");
   const [error, setError] = useState(undefined);
   const [cookies, setCookie] = useCookies(["token"]);
   const [state, dispatch] = useContext(Context);
@@ -32,16 +33,16 @@ export default function AlertDialogSlide(props) {
 
   const verifyLogin = () => {
     if (
-      email === "" ||
-      password === "" ||
-      name === "" ||
-      address === "" ||
-      telephone === 0 ||
-      description === ""
+      email == "" ||
+      password == "" ||
+      name == "" ||
+      address == "" ||
+      telephone == 0 ||
+      description == ""
     )
       return setError("Please Fill the required fields");
     axios
-      .post("https://equal-yoke-touted-vein-production.pipops.app/api/hospital/register", {
+      .post("https://equal-yoke-touted-vein-production.pipeops.app/api/hospital/register", {
         email,
         password,
         name,
@@ -49,25 +50,28 @@ export default function AlertDialogSlide(props) {
         address,
         telephone,
         beds,
+        // type,
         description,
       })
       .then((response) => {
-        // if (response.status !== 200) {
-        //   setError(response.data.message);
-        //   return;
-        // }
+        if (response.status !== 200) {
+          setError(response.data.message);
+          return;
+        }
         setCookie("token", response.data.token, { path: "/" });
+        console.log(state);
         dispatch({
           type: "HOSPITAL_REGISTER",
           payload: {
             isAuth: true,
-            hospitalData: response.data.hospital,
+            hospital: response.data.hospital,
             isHospital: true,
           },
         });
         setRedirect(true);
       })
       .catch((err) => {
+        // console.log(err);
         if (
           err &&
           err.response &&
@@ -78,17 +82,31 @@ export default function AlertDialogSlide(props) {
       });
   };
 
-  const onEmailInputChange = (event) => setEmail(event.target.value);
-  const onPasswordInputChange = (event) => setPassword(event.target.value);
-  const onNameInputChange = (event) => setname(event.target.value);
-  const onlocationInputChange = (event) =>
-    setlocation({ ...location, [event.target.name]: event.target.value });
-  const onaddressInputChange = (event) => setaddress(event.target.value);
-  const ontelephoneInputChange = (event) => settelephone(event.target.value);
-  const onBedInputChange = (event) => setBeds(event.target.value);
-  const onDescriptionInputChange = (event) =>
-    setDescription(event.target.value);
+  const onEmailInputChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const onPasswordInputChange = (event) => {
+    setPassword(event.target.value);
+  };
 
+  const onNameInputChange = (event) => {
+    setname(event.target.value);
+  };
+  const onlocationInputChange = (event) => {
+    setlocation(event.target.value);
+  };
+  const onaddressInputChange = (event) => {
+    setaddress(event.target.value);
+  };
+  const ontelephoneInputChange = (event) => {
+    settelephone(event.target.value);
+  };
+  const onBedInputChange = (event) => {
+    setBeds(event.target.value);
+  };
+  const onDescriptionInputChange = (event) => {
+    setDescription(event.target.value);
+  };
   if (redirect) return <Redirect to="/" />;
   return (
     <div>
@@ -101,11 +119,11 @@ export default function AlertDialogSlide(props) {
             <div className="create-form-element">
               <img src={image} alt="create svg" style={{ width: "25vw" }} />
             </div>
-            {/* {error ? (
+            {error ? (
               <div className="create-form-element">
                 <Alert severity="error">{error}</Alert>
               </div>
-            ) : null} */}
+            ) : null}
             <div className="create-form-element">
               <div className="hospital-register-input-wrapper">
                 <TextField
@@ -137,7 +155,7 @@ export default function AlertDialogSlide(props) {
                 <TextField
                   value={address}
                   onChange={onaddressInputChange}
-                  label="Address"
+                  label="address"
                   variant="outlined"
                   InputProps={{
                     startAdornment: (
@@ -172,6 +190,12 @@ export default function AlertDialogSlide(props) {
                     ),
                   }}
                 />
+                <TextField
+                  value={address}
+                  onChange={onaddressInputChange}
+                  label="address"
+                  variant="outlined"
+                />
               </div>
             </div>
             <div className="create-form-element">
@@ -195,16 +219,15 @@ export default function AlertDialogSlide(props) {
                   onChange={onBedInputChange}
                   label="Beds"
                   variant="outlined"
-                  type="number"
+                  type="integer"
                 />
               </div>
             </div>
             <div className="create-form-element">
               <div className="hospital-register-input-wrapper">
                 <TextField
-                  name="latitude"
                   value={location.latitude}
-                  onChange={onlocationInputChange}
+                  onChange={onDescriptionInputChange}
                   id="outlined-basic"
                   label="Latitude"
                   variant="outlined"
@@ -234,12 +257,11 @@ export default function AlertDialogSlide(props) {
                   }}
                 />
                 <TextField
-                  name="longitude"
                   value={location.longitude}
-                  onChange={onlocationInputChange}
-                  label="Longitude"
+                  onChange={onBedInputChange}
+                  label="Longitute"
                   variant="outlined"
-                  type="number"
+                  type="integer"
                 />
               </div>
             </div>

@@ -83,33 +83,26 @@ export const HMap = (props) => {
     }
     const addMarkerfromData = (platform, data) => {
       let service = platform.getSearchService();
-      data.forEach((ele) =>
+      data.map((ele) =>
         service.geocode(
           {
             q: ele.address,
           },
           (result) => {
-            if (result.items && result.items.length > 0) {
-              let item = result.items[0];
-              if (item && item.position) {
-                const currentGroup = new H.map.Group();
-                map.addObject(currentGroup);
-                map.setCenter(item.position);
-                const currentMarker = new H.map.Marker(item.position);
-                currentGroup.addObject(currentMarker);
-                currentGroup.addEventListener("tap", (evt) => {
-                  setElement(ele); // corrected this line
-                  handleClickOpen();
-                  console.log(ele);
-                });
-              }
-            } else {
-              console.error("No position found for address:", ele.address);
-            }
+            let item = result.items[0];
+            const currentGroup = new H.map.Group();
+            map.addObject(currentGroup);
+            map.setCenter(item.position);
+            const currentMarker = new H.map.Marker(item.position);
+            // currentMarker.setData(ele);
+            currentGroup.addObject(currentMarker);
+            currentGroup.addEventListener("tap", (evt) => {
+              setElement({ ele });
+              handleClickOpen();
+              console.log(ele);
+            });
           },
-          (e) => {
-            console.error("Geocode error:", e);
-          }
+          alert
         )
       );
     };
@@ -133,17 +126,19 @@ export const HMap = (props) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {currentElement.name || ""}
+          {currentElement.ele ? currentElement.ele.name : null}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {currentElement.description || ""}
+            {currentElement.ele ? currentElement.ele.description : null}
           </DialogContentText>
-          <HospitalTable props={{ data: currentElement }} />
+          <HospitalTable props={{ data: currentElement.ele }} />
         </DialogContent>
         <DialogActions>
           <NavLink
-            to={`/hospital/profile/${currentElement._id || ""}`}
+            to={`/hospital/profile/${
+              currentElement.ele ? currentElement.ele._id : null
+            }`}
           >
             <Button variant="outlined" onClick={handleClose} color="primary">
               View Profile

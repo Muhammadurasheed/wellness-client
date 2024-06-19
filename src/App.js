@@ -18,7 +18,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("https://equal-yoke-touted-vein-production.pipops.app/api/checktoken", { withCredentials: true })
+      .get("/api/checktoken", { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);

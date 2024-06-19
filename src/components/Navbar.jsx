@@ -40,7 +40,7 @@ export default function ButtonAppBar() {
     <div className={classes.root + " nav-wrapper"}>
       <AppBar
         position="static"
-        style={{ backgroundColor: state.isHospital ? "#66aced" : "#e3192d" }}
+        style={{ backgroundColor: state.isHospital ? "#b23d10" : "#4573b9" }}
       >
         <Toolbar>
           <IconButton

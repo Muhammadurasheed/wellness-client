@@ -38,7 +38,7 @@ export default function LetterAvatars({ match }) {
       userName: state.userData.name,
     };
     axios
-      .post("/review/reviewpost", reviewobj)
+      .post("https://equal-yoke-touted-vein-production.pipeops.app/review/reviewpost", reviewobj)
       .then((response) => {
         if (response.status !== 200) {
           setError(response.data.message);
@@ -67,7 +67,7 @@ export default function LetterAvatars({ match }) {
 
   useEffect(() => {
     axios
-      .get(`https://equal-yoke-touted-vein-production.pipops.app/api/hospital/profile/${match.params.id}`)
+      .get(`https://equal-yoke-touted-vein-production.pipeops.app/api/hospital/profile/${match.params.id}`)
       .then((res) => {
         if (res.status !== 200) return;
         const profile = res.data;
@@ -82,7 +82,7 @@ export default function LetterAvatars({ match }) {
       id: match.params.id,
     };
     axios
-      .post(`/review/getreviews`, i)
+      .post(`https://equal-yoke-touted-vein-production.pipeops.app/review/getreviews`, i)
       .then((res) => {
         if (res.status !== 200) return;
         setCommentData(res.data.reviews.reverse());

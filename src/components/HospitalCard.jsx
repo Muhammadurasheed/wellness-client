@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor: "lightgreen",
+    backgroundColor: "green",
   },
 }));
 
@@ -44,15 +44,10 @@ export default function HospitalCards({ props }) {
   const classes = useStyles();
 
   return (
-    // <Card
-    //   className={"hospital-map-card"}
-    //   style={{ width: 345 }}
-    //   width="345px"
-    //   style={{ flexBasis: "33.33%" }}
-    // >
     <Card
       className={"hospital-map-card"}
-      style={{ width: 345, flexBasis: "33.33%" }}
+      width="345px"
+      style={{ flexBasis: "33.33%", width: 345  }}
     >
       <CardHeader
         avatar={
@@ -72,7 +67,7 @@ export default function HospitalCards({ props }) {
         <CardMedia className={classes.media} image={image} title={data.name} />
       ) : null}
       <CardContent>
-        <Typography variant="body2" color="textPrimary" component="p">
+        <Typography variant="body2" color="textSecondary" component="p">
           {data.description}
         </Typography>
       </CardContent>
@@ -85,7 +80,7 @@ export default function HospitalCards({ props }) {
         <a href={`tel:${data.telephone}`}>
           <Button
             variant="outlined"
-            color="primary"
+            color="#aed581"
             endIcon={<AddIcCallIcon />}
           >
             Call

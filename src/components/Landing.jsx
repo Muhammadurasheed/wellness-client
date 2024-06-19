@@ -40,7 +40,7 @@ const Dashboard = () => {
           }}
           display="block"
         >
-          Welcome to the Sewak!
+          Welcome to the Wellness!
         </Typography>
       </div>
       <div
@@ -54,7 +54,7 @@ const Dashboard = () => {
       >
         <Link to="/map">
           <Button variant="outlined" color="primary">
-            Open Map
+            View Map
           </Button>
         </Link>
       </div>

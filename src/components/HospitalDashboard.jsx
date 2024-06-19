@@ -216,7 +216,7 @@ export default function LetterAvatars({ match }) {
                     <Button
                       onClick={() => {
                         axios
-                          .post("/api/booking/update", {
+                          .post("https://equal-yoke-touted-vein-production.pipeops.app/api/booking/update", {
                             id: v._id,
                             status: -1,
                           })
@@ -236,7 +236,7 @@ export default function LetterAvatars({ match }) {
                       color="primary"
                       onClick={() => {
                         axios
-                          .post("/api/booking/update", {
+                          .post("https://equal-yoke-touted-vein-production.pipeops.app/api/booking/update", {
                             id: v._id,
                             status: 1,
                           })

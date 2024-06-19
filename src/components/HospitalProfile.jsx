@@ -219,7 +219,7 @@ export default function LetterAvatars({ match }) {
                   <Button
                     onClick={() => {
                       axios
-                        .post("/review/updateVote", {
+                        .post("https://equal-yoke-touted-vein-production.pipeops.app/review/updateVote", {
                           userName: state.userData.name,
                           reviewId: v._id,
                           hospitalID: match.params.id,
@@ -241,7 +241,7 @@ export default function LetterAvatars({ match }) {
                   <Button
                     onClick={() => {
                       axios
-                        .post("/review/updateVote", {
+                        .post("https://equal-yoke-touted-vein-production.pipeops.app/review/updateVote", {
                           userName: state.userData.name,
                           reviewId: v._id,
                           hospitalID: match.params.id,

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useReducer } from "react";
+import React, { useState, useContext } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { Context } from "../Store";
@@ -11,7 +11,6 @@ import {
   Typography,
   Snackbar,
 } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailIcon from "@material-ui/icons/Email";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import AddressIcon from "@material-ui/icons/Home";

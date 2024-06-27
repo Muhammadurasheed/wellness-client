@@ -1,9 +1,6 @@
 import React from "react";
 import { HMap } from "./Hmap";
 import HospitalCards from "./HospitalCard";
-import { Paper, Typography, Button } from "@material-ui/core";
-import image from "../assets/map.svg";
-import { Link } from "react-router-dom";
 const ViewMap = () => {
   const API_URL = "https://equal-yoke-touted-vein-production.pipeops.app/api/hospital/all";
   const [data, setData] = React.useState([]);

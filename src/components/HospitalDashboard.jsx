@@ -23,10 +23,9 @@ export default function LetterAvatars({ match }) {
   const [bookingLoading, setBookingLoading] = useState(true);
   const [profile, setProfile] = useState({});
   const [bookings, setBookings] = useState([]);
-  const [error, setError] = useState();
   const [getBookings, setGetBookings] = useState(false);
   const [value, setValue] = React.useState(0);
-  const [len, setLen] = React.useState(0);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -252,19 +251,6 @@ export default function LetterAvatars({ match }) {
           );
         })
       ) : null}
-      {/*len == 0 ? (
-        <Paper
-          style={{
-            padding: "20px 10px",
-            marginTop: 60,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h6">Nothing to show</Typography>
-        </Paper>
-      ) : null */}
     </div>
   );
 }

@@ -14,18 +14,9 @@ const randomNumberBetweenZeroAnd = (a) => {
 };
 
 export default function Home() {
-  const [optionState, setOptionState] = React.useState({
-    type: 1,
-  });
+
   const [hospitals, setHospitals] = useState([]);
   const [hospitalsLoading, setHospitalsLoading] = useState(true);
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setOptionState({
-      ...optionState,
-      [name]: event.target.value,
-    });
-  };
   useEffect(() => {
     axios
       .get("https://equal-yoke-touted-vein-production.pipeops.app/api/hospital/all")
@@ -43,25 +34,7 @@ export default function Home() {
   }, []);
   return (
     <div>
-      {/* <div className="hospital-select-wrapper">
-        <Typography variant="body2" style={{ marginRight: 10 }}>
-          Select the type of Hospital you are looking for
-        </Typography>
-        <Select
-          native
-          value={optionState.type}
-          onChange={handleChange}
-          inputProps={{
-            name: "type",
-            id: "age-native-simple",
-          }}
-        >
-          <option aria-label="None" value="" />
-          <option value={1}>Type1</option>
-          <option value={2}>Type2</option>
-          <option value={3}>Type3</option>
-        </Select>
-      </div> */}
+
       <Text text={"List of all the hospitals"} />
 
       {hospitalsLoading ? (

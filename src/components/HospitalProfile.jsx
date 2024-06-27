@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import { Paper, Icon } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import { Typography, TextField } from "@material-ui/core";
 import { Rating, Skeleton } from "@material-ui/lab";
 import { Button } from "@material-ui/core";
@@ -8,7 +8,6 @@ import Upvote from "@material-ui/icons/ArrowUpward";
 import Downvote from "@material-ui/icons/ArrowDownward";
 import BookAnAppointment from "./BookAnAppointemnt";
 import axios from "axios";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import HospitalInfo from "./HospitalInfo";
 import { Context } from "../Store";
 

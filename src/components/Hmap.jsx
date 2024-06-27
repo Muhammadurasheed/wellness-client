@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Dialog,
   DialogContent,
@@ -7,33 +6,10 @@ import {
   DialogActions,
   DialogTitle,
   Button,
-  Link,
 } from "@material-ui/core";
 import HospitalTable from "./HospitalTable";
 import { NavLink } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: "green",
-  },
-}));
 
 export const HMap = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -59,9 +35,7 @@ export const HMap = (props) => {
       pixelRatio: window.devicePixelRatio || 1,
     });
 
-    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
-    const ui = H.ui.UI.createDefault(map, defaultLayers);
 
     const success = (position) => {
       const lat = position.coords.latitude;
@@ -70,7 +44,7 @@ export const HMap = (props) => {
       map.setZoom(10);
       const currentMarker = new H.map.Marker({ lat, lng });
       map.addObject(currentMarker);
-      currentMarker.addEventListener("tap", (event) => {
+      currentMarker.addEventListener("tap", () => {
         alert("This is your location");
       });
     };
@@ -96,7 +70,7 @@ export const HMap = (props) => {
             const currentMarker = new H.map.Marker(item.position);
             // currentMarker.setData(ele);
             currentGroup.addObject(currentMarker);
-            currentGroup.addEventListener("tap", (evt) => {
+            currentGroup.addEventListener("tap", () => {
               setElement({ ele });
               handleClickOpen();
               console.log(ele);

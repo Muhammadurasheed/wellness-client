@@ -2,7 +2,7 @@ import React, { useState, useContext, useReducer } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { Context } from "../Store";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import {
   TextField,
   Paper,
@@ -93,7 +93,7 @@ export default function HospitalProfileEdit({ match }) {
   };
   if (state.isLoading) return "Loading...";
   if (!state.isHospital || state.hospitalData._id !== match.params.id)
-    return <Redirect to="/" />;
+    return <Navigate to="/" />;
   const handleOnchange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };

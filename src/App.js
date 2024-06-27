@@ -1,5 +1,5 @@
-import React, { useEffect, useContext, useState } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
+import { Link, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Home from "./components/Home";
 import UserAuth from "./components/UserAuth";
@@ -39,28 +39,21 @@ export default function App() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [dispatch]);
+
   return (
     <>
       <Navbar />
-      <Switch>
-      <Route path="/map" exact component={ViewMap} />
-        <Route path="/hospital/all" exact component={Home} />
-        <Route path="/user/auth" exact component={UserAuth} />
-        <Route path="/" exact component={Dashboard} />
-        <Route path="/hospital/auth" exact component={HospitalAuth} />
-        <Route path="/hospital/profile/:id" exact component={HospitalProfile} />
-        <Route
-          path="/hospital/dashboard/:id"
-          exact
-          component={HospitalDashboard}
-        />
-        <Route
-          path="/hospital/profile/edit/:id"
-          exact
-          component={HospitalProfileEdit}
-        />
-      </Switch>
+      <Routes>
+        <Route path="/map" element={<ViewMap />} />
+        <Route path="/hospital/all" element={<Home />} />
+        <Route path="/user/auth" element={<UserAuth />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/hospital/auth" element={<HospitalAuth />} />
+        <Route path="/hospital/profile/:id" element={<HospitalProfile />} />
+        <Route path="/hospital/dashboard/:id" element={<HospitalDashboard />} />
+        <Route path="/hospital/profile/edit/:id" element={<HospitalProfileEdit />} />
+      </Routes>
     </>
   );
 }

@@ -6,7 +6,7 @@ import { TextField, Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
 import image from "../assets/register.svg";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router-dom";
 
 export default function AlertDialogSlide(props) {
   const [email, setEmail] = useState("");
@@ -62,7 +62,7 @@ export default function AlertDialogSlide(props) {
     setName(event.target.value);
   };
 
-  if (redirect) return <Redirect to="/" />;
+  if (redirect) return <Navigate to="/" />;
 
   return (
     <div>

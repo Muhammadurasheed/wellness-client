@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { useCookies } from "react-cookie";
@@ -6,7 +6,7 @@ import { TextField, Paper, InputAdornment } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
 import image from "../assets/hospital_register.svg";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import AccountCircle from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import AddressIcon from "@material-ui/icons/Home";
@@ -16,14 +16,12 @@ import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 export default function AlertDialogSlide(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setname] = useState("");
-  const [location, setlocation] = useState({ latitude: "", longitude: "" });
-  const [address, setaddress] = useState("");
-  const [telephone, settelephone] = useState("");
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState({ latitude: "", longitude: "" });
+  const [address, setAddress] = useState("");
+  const [telephone, setTelephone] = useState("");
   const [beds, setBeds] = useState(0);
-  // const [type, setType] = useState([]);
   const [description, setDescription] = useState("");
-  // const [image, setImage] = useState("");
   const [error, setError] = useState(undefined);
   const [cookies, setCookie] = useCookies(["token"]);
   const [state, dispatch] = useContext(Context);
@@ -33,14 +31,15 @@ export default function AlertDialogSlide(props) {
 
   const verifyLogin = () => {
     if (
-      email == "" ||
-      password == "" ||
-      name == "" ||
-      address == "" ||
-      telephone == 0 ||
-      description == ""
+      email === "" ||
+      password === "" ||
+      name === "" ||
+      address === "" ||
+      telephone === "" ||
+      description === ""
     )
-      return setError("Please Fill the required fields");
+      return setError("Please fill the required fields");
+
     axios
       .post("https://equal-yoke-touted-vein-production.pipeops.app/api/hospital/register", {
         email,
@@ -50,7 +49,6 @@ export default function AlertDialogSlide(props) {
         address,
         telephone,
         beds,
-        // type,
         description,
       })
       .then((response) => {
@@ -59,7 +57,6 @@ export default function AlertDialogSlide(props) {
           return;
         }
         setCookie("token", response.data.token, { path: "/" });
-        console.log(state);
         dispatch({
           type: "HOSPITAL_REGISTER",
           payload: {
@@ -71,7 +68,6 @@ export default function AlertDialogSlide(props) {
         setRedirect(true);
       })
       .catch((err) => {
-        // console.log(err);
         if (
           err &&
           err.response &&
@@ -88,26 +84,30 @@ export default function AlertDialogSlide(props) {
   const onPasswordInputChange = (event) => {
     setPassword(event.target.value);
   };
-
   const onNameInputChange = (event) => {
-    setname(event.target.value);
+    setName(event.target.value);
   };
-  const onlocationInputChange = (event) => {
-    setlocation(event.target.value);
+  const onLocationInputChange = (field, value) => {
+    setLocation((prevLocation) => ({
+      ...prevLocation,
+      [field]: value,
+    }));
   };
-  const onaddressInputChange = (event) => {
-    setaddress(event.target.value);
+  const onAddressInputChange = (event) => {
+    setAddress(event.target.value);
   };
-  const ontelephoneInputChange = (event) => {
-    settelephone(event.target.value);
+  const onTelephoneInputChange = (event) => {
+    setTelephone(event.target.value);
   };
-  const onBedInputChange = (event) => {
+  const onBedsInputChange = (event) => {
     setBeds(event.target.value);
   };
   const onDescriptionInputChange = (event) => {
     setDescription(event.target.value);
   };
-  if (redirect) return <Redirect to="/" />;
+
+  if (redirect) return <Navigate to="/" />;
+
   return (
     <div>
       <div className="absolute-center">
@@ -153,9 +153,15 @@ export default function AlertDialogSlide(props) {
             <div className="create-form-element">
               <div className="hospital-register-input-wrapper">
                 <TextField
+                  value={name}
+                  onChange={onNameInputChange}
+                  label="Name"
+                  variant="outlined"
+                />
+                <TextField
                   value={address}
-                  onChange={onaddressInputChange}
-                  label="address"
+                  onChange={onAddressInputChange}
+                  label="Address"
                   variant="outlined"
                   InputProps={{
                     startAdornment: (
@@ -165,21 +171,13 @@ export default function AlertDialogSlide(props) {
                     ),
                   }}
                 />
-                <TextField
-                  value={name}
-                  onChange={onNameInputChange}
-                  id="outlined-basic"
-                  label="Name"
-                  variant="outlined"
-                />
               </div>
             </div>
             <div className="create-form-element">
               <div className="hospital-register-input-wrapper">
                 <TextField
                   value={telephone}
-                  onChange={ontelephoneInputChange}
-                  id="outlined-basic"
+                  onChange={onTelephoneInputChange}
                   label="Telephone"
                   variant="outlined"
                   InputProps={{
@@ -191,19 +189,8 @@ export default function AlertDialogSlide(props) {
                   }}
                 />
                 <TextField
-                  value={address}
-                  onChange={onaddressInputChange}
-                  label="address"
-                  variant="outlined"
-                />
-              </div>
-            </div>
-            <div className="create-form-element">
-              <div className="hospital-register-input-wrapper">
-                <TextField
                   value={description}
                   onChange={onDescriptionInputChange}
-                  id="outlined-basic"
                   label="Description"
                   variant="outlined"
                   InputProps={{
@@ -214,21 +201,20 @@ export default function AlertDialogSlide(props) {
                     ),
                   }}
                 />
-                <TextField
-                  value={beds}
-                  onChange={onBedInputChange}
-                  label="Beds"
-                  variant="outlined"
-                  type="integer"
-                />
               </div>
             </div>
             <div className="create-form-element">
               <div className="hospital-register-input-wrapper">
                 <TextField
+                  value={beds}
+                  onChange={onBedsInputChange}
+                  label="Beds"
+                  variant="outlined"
+                  type="number"
+                />
+                <TextField
                   value={location.latitude}
-                  onChange={onDescriptionInputChange}
-                  id="outlined-basic"
+                  onChange={(e) => onLocationInputChange("latitude", e.target.value)}
                   label="Latitude"
                   variant="outlined"
                   InputProps={{
@@ -239,7 +225,7 @@ export default function AlertDialogSlide(props) {
                           onClick={() =>
                             navigator.geolocation.getCurrentPosition(
                               (pos) =>
-                                setlocation({
+                                setLocation({
                                   latitude: pos.coords.latitude,
                                   longitude: pos.coords.longitude,
                                 }),
@@ -258,10 +244,10 @@ export default function AlertDialogSlide(props) {
                 />
                 <TextField
                   value={location.longitude}
-                  onChange={onBedInputChange}
-                  label="Longitute"
+                  onChange={(e) => onLocationInputChange("longitude", e.target.value)}
+                  label="Longitude"
                   variant="outlined"
-                  type="integer"
+                  type="number"
                 />
               </div>
             </div>

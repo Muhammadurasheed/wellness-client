@@ -1,13 +1,12 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Button from "@material-ui/core/Button";
-import Slide from "@material-ui/core/Slide";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { TextField, Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
 import image from "../assets/hospital_login.svg";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export default function AlertDialogSlide(props) {
   const [email, setEmail] = useState("");
@@ -16,8 +15,6 @@ export default function AlertDialogSlide(props) {
   const [cookies, setCookie] = useCookies(["token"]);
   const [state, dispatch] = useContext(Context);
   const [redirect, setRedirect] = useState(false);
-
-  useEffect(() => {}, []);
 
   const verifyLogin = () => {
     axios
@@ -44,7 +41,6 @@ export default function AlertDialogSlide(props) {
         setRedirect(true);
       })
       .catch((err) => {
-        // console.log(err);
         if (
           err &&
           err.response &&
@@ -61,7 +57,9 @@ export default function AlertDialogSlide(props) {
   const onPasswordInputChange = (event) => {
     setPassword(event.target.value);
   };
-  if (redirect) return <Redirect to="/" />;
+
+  if (redirect) return <Navigate to="/" />;
+
   return (
     <div>
       <div className="absolute-center">

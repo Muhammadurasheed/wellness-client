@@ -1,5 +1,5 @@
 # Use the official Node.js image from the Docker Hub
-FROM node:16
+FROM node:20
 
 # Set the working directory in the container
 WORKDIR /app
@@ -15,6 +15,9 @@ COPY . .
 
 # Set environment variable to use the legacy OpenSSL provider
 ENV NODE_OPTIONS=--openssl-legacy-provider
+
+# Disable CI environment variable to prevent treating warnings as errors
+ENV CI=false
 
 # Run the build process
 RUN npm run build

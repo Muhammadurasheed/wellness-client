@@ -27,7 +27,7 @@ const ViewMap = () => {
           })}
           {/* </Paper> */}
         </div>
-        <HMap data={data} loading={loading} />
+        <HMap data={data} loading={loading} /> 
         
       </div>
   );

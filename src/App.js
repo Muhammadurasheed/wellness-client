@@ -8,18 +8,17 @@ import Navbar from "./components/Navbar";
 import HospitalProfile from "./components/HospitalProfile";
 import HospitalProfileEdit from "./components/HospitalProfileEdit";
 import HospitalDashboard from "./components/HospitalDashboard";
-
-import { Context } from "./Store";
 import Dashboard from "./components/Landing";
 import ViewMap from "./components/ViewMap";
+import { Context } from "./Store";
 
 export default function App() {
   const [state, dispatch] = useContext(Context);
 
   useEffect(() => {
-    axios
-      .get("https://equal-yoke-touted-vein-production.pipeops.app/api/checktoken", { withCredentials: true })
-      .then((res) => {
+    const checkToken = async () => {
+      try {
+        const res = await axios.get("https://equal-yoke-touted-vein-production.pipeops.app/api/checktoken", { withCredentials: true });
         if (res.status === 200) {
           console.log(res.data);
           dispatch({
@@ -32,13 +31,14 @@ export default function App() {
             },
           });
         } else {
-          const error = new Error(res.error);
-          throw error;
+          throw new Error(res.error);
         }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      } catch (err) {
+        console.error("Authentication check failed:", err);
+      }
+    };
+
+    checkToken();
   }, [dispatch]);
 
   return (
@@ -53,6 +53,7 @@ export default function App() {
         <Route path="/hospital/profile/:id" element={<HospitalProfile />} />
         <Route path="/hospital/dashboard/:id" element={<HospitalDashboard />} />
         <Route path="/hospital/profile/edit/:id" element={<HospitalProfileEdit />} />
+        <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </>
   );

@@ -34,7 +34,7 @@ export default function LetterAvatars({ match }) {
     axios
       .get(`https://equal-yoke-touted-vein-production.pipeops.app/api/hospital/profile/${match.params.id}`)
       .then((res) => {
-        if (res.status !== 200) return;
+        if (res.status !==200) return;
         const profile = res.data;
         setProfile(profile);
         setTimeout(() => {
@@ -150,9 +150,9 @@ export default function LetterAvatars({ match }) {
           console.log("sadasd");
           var date = new Date(v.bookingDate);
           date = date.toLocaleDateString();
-          if (value == 0) if (v.status != 0) return null;
-          if (value == 1) if (v.status != 1) return null;
-          if (value == 2) if (v.status != -1) return null;
+          if (value === 0) if (v.status != 0) return null;
+          if (value === 1) if (v.status != 1) return null;
+          if (value === 2) if (v.status != -1) return null;
           return (
             <Paper
               key={i}
@@ -199,7 +199,7 @@ export default function LetterAvatars({ match }) {
                 <Typography className="booking-body-element" variant="body1">
                   Booking Time: {v.bookingTime}
                 </Typography>
-                {value == 0 ? (
+                {value === 0 ? (
                   <div
                     style={{
                       display: "flex",

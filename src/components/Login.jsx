@@ -6,7 +6,7 @@ import { TextField, Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Context } from "../Store";
 import image from "../assets/authenticate.svg";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Use useNavigate for navigation
 
 export default function AlertDialogSlide(props) {
   const [email, setEmail] = useState("");
@@ -14,49 +14,43 @@ export default function AlertDialogSlide(props) {
   const [error, setError] = useState(undefined);
   const [cookies, setCookie] = useCookies(["token"]);
   const [state, dispatch] = useContext(Context);
-  const [redirect, setRedirect] = useState(false);
-  
+  const navigate = useNavigate(); // Initialize useNavigate
+
   useEffect(() => {}, []);
 
-  const verifyLogin = () => {
-    axios
-      .post("https://equal-yoke-touted-vein-production.pipeops.app/api/user/login", {
+  const verifyLogin = async () => {
+    try {
+      const response = await axios.post("https://equal-yoke-touted-vein-production.pipeops.app/api/user/login", {
         email,
         password,
-      })
-      .then((response) => {
-        if (response.status !== 200) {
-          setError(response.data.message);
-          return;
-        }
-        setCookie("token", response.data.token, { path: "/" });
-        dispatch({
-          type: "LOGIN",
-          payload: { isAuth: true, userData: response.data.user },
-        });
-        console.log(state);
-        setRedirect(true);
-      })
-      .catch((err) => {
-        if (
-          err &&
-          err.response &&
-          err.response.data &&
-          err.response.data.message
-        )
-          setError(err.response.data.message);
       });
+      if (response.status !== 200) {
+        setError(response.data.message);
+        return;
+      }
+      setCookie("token", response.data.token, { path: "/" });
+      dispatch({
+        type: "LOGIN",
+        payload: { isAuth: true, userData: response.data.user },
+      });
+      navigate("/");
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("An unknown error occurred");
+      }
+    }
   };
 
   const onEmailInputChange = (event) => {
     setEmail(event.target.value);
   };
+
   const onPasswordInputChange = (event) => {
     setPassword(event.target.value);
   };
 
-  if (redirect) return <Navigate to="/" />;
-  
   return (
     <div>
       <div className="absolute-center">
@@ -68,11 +62,11 @@ export default function AlertDialogSlide(props) {
             <div className="create-form-element">
               <img src={image} alt="create svg" style={{ width: "25vw" }} />
             </div>
-            {error ? (
+            {error && (
               <div className="create-form-element">
                 <Alert severity="error">{error}</Alert>
               </div>
-            ) : null}
+            )}
             <div className="create-form-element">
               <TextField
                 value={email}

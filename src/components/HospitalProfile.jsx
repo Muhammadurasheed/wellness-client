@@ -175,8 +175,8 @@ export default function LetterAvatars({ match }) {
         </div>
       ) : commentData2.length > 0 ? (
         commentData2.map((v, i) => {
-          var downVote = v.voteArray.filter((v) => v.vote == false);
-          var upVote = v.voteArray.filter((v) => v.vote == true);
+          var downVote = v.voteArray.filter((v) => v.vote === false);
+          var upVote = v.voteArray.filter((v) => v.vote === true);
           return (
             <Paper
               key={i}
@@ -226,7 +226,7 @@ export default function LetterAvatars({ match }) {
                           vote: true,
                         })
                         .then((res) => {
-                          if (res.status == 200) {
+                          if (res.status === 200) {
                             console.log(res);
                             setGetComment(getcomment ? false : true);
                           }
@@ -248,7 +248,7 @@ export default function LetterAvatars({ match }) {
                           vote: false,
                         })
                         .then((res) => {
-                          if (res.status == 200) {
+                          if (res.status === 200) {
                             console.log(res);
                             setGetComment(getcomment ? false : true);
                           }

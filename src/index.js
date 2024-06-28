@@ -17,4 +17,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+// Unregister the service worker to disable offline capabilities
 serviceWorker.unregister();

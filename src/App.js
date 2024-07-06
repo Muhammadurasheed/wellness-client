@@ -11,6 +11,7 @@ import HospitalDashboard from "./components/HospitalDashboard";
 import Dashboard from "./components/Landing";
 import ViewMap from "./components/ViewMap";
 import { Context } from "./Store";
+import QuestionnaireForm from "./components/questonaireForm";
 
 export default function App() {
   const [state, dispatch] = useContext(Context);
@@ -46,6 +47,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/map" element={<ViewMap />} />
+        <Route path="/questioniare" element={<QuestionnaireForm />} />
         <Route path="/hospital/all" element={<Home />} />
         <Route path="/user/auth" element={<UserAuth />} />
         <Route path="/" element={<Dashboard />} />
